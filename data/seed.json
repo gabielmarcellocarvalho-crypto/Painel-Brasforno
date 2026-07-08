@@ -1,0 +1,124 @@
+{
+  "seq": 3,
+  "propostas": [
+    {
+      "id": "exemplo001",
+      "numero": "BF-2026-0001",
+      "criadaEm": "2026-07-01T10:30:00.000Z",
+      "atualizadaEm": "2026-07-03T14:00:00.000Z",
+      "status": "ganha",
+      "representante": "Maria Souza",
+      "cliente": {
+        "nome": "Carlos Andrade",
+        "empresa": "Padaria Pão Dourado",
+        "whatsapp": "(11) 98765-4321",
+        "email": "carlos@paodourado.com.br",
+        "cidade": "Osasco",
+        "uf": "SP",
+        "segmento": "Padaria"
+      },
+      "itens": [
+        {
+          "produtoId": "forno-lastro-pnova",
+          "produtoNome": "Forno de Lastro PNOVA",
+          "categoria": "Fornos",
+          "modelo": "PNOVA 6",
+          "quantidade": 1,
+          "precoUnitario": 48900
+        },
+        {
+          "produtoId": "amassadeira-evo-pro",
+          "produtoNome": "Amassadeira EVO PRO",
+          "categoria": "Amassadeiras",
+          "modelo": "EVO PRO 25",
+          "quantidade": 1,
+          "precoUnitario": 12500
+        }
+      ],
+      "condicoes": {
+        "validadeDias": 15,
+        "prazoEntrega": "30 dias úteis após confirmação",
+        "frete": "CIF",
+        "formaPagamento": "50% entrada + 50% na entrega",
+        "descontoPercent": 5,
+        "observacoes": "Instalação e treinamento da equipe inclusos."
+      }
+    },
+    {
+      "id": "exemplo002",
+      "numero": "BF-2026-0002",
+      "criadaEm": "2026-07-04T09:15:00.000Z",
+      "atualizadaEm": "2026-07-04T09:15:00.000Z",
+      "status": "negociacao",
+      "representante": "João Pereira",
+      "cliente": {
+        "nome": "Fernanda Lima",
+        "empresa": "Confeitaria Doce Vida",
+        "whatsapp": "(71) 99911-2233",
+        "cidade": "Salvador",
+        "uf": "BA",
+        "segmento": "Confeitaria"
+      },
+      "itens": [
+        {
+          "produtoId": "forno-turbo-virtus",
+          "produtoNome": "Forno Turbo Virtus",
+          "categoria": "Fornos",
+          "modelo": "Virtus 8",
+          "quantidade": 1,
+          "precoUnitario": 32900
+        },
+        {
+          "produtoId": "batedeira-evo",
+          "produtoNome": "Batedeira EVO / EVO-XT",
+          "categoria": "Batedeiras",
+          "modelo": "EVO 20",
+          "quantidade": 2,
+          "precoUnitario": 7800
+        }
+      ],
+      "condicoes": {
+        "validadeDias": 10,
+        "prazoEntrega": "45 dias úteis",
+        "frete": "FOB",
+        "formaPagamento": "Financiamento FINAME",
+        "descontoPercent": 0,
+        "observacoes": ""
+      }
+    },
+    {
+      "id": "exemplo003",
+      "numero": "BF-2026-0003",
+      "criadaEm": "2026-07-06T16:45:00.000Z",
+      "atualizadaEm": "2026-07-06T16:45:00.000Z",
+      "status": "enviada",
+      "representante": "Maria Souza",
+      "cliente": {
+        "nome": "Roberto Nunes",
+        "empresa": "Supermercado Bom Preço",
+        "whatsapp": "(31) 98822-7744",
+        "cidade": "Belo Horizonte",
+        "uf": "MG",
+        "segmento": "Supermercado"
+      },
+      "itens": [
+        {
+          "produtoId": "forno-rotativo-rotor",
+          "produtoNome": "Forno Rotativo ROTOR",
+          "categoria": "Fornos",
+          "modelo": "ROTOR 02 Grand — Gás",
+          "quantidade": 1,
+          "precoUnitario": 89500
+        }
+      ],
+      "condicoes": {
+        "validadeDias": 15,
+        "prazoEntrega": "60 dias úteis",
+        "frete": "A combinar",
+        "formaPagamento": "28/56/84 dias",
+        "descontoPercent": 3,
+        "observacoes": "Cliente avaliando também proposta de concorrente — reforçar economia de 40% no consumo."
+      }
+    }
+  ]
+}
