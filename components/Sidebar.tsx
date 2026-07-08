@@ -39,10 +39,6 @@ export default function Sidebar() {
               priority
             />
             <p className="tech-label mt-5 text-steel-300">Central de Propostas</p>
-            <div className="mt-2 flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" aria-hidden />
-              <p className="tech-label text-steel-400">servidor local ativo</p>
-            </div>
           </div>
 
           <nav className="mt-5 flex flex-col gap-0.5 px-3" aria-label="Navegação principal">
