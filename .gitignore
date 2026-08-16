@@ -23,3 +23,6 @@ next-env.d.ts
 
 # dados locais (contêm informações de clientes)
 /data/propostas.json
+
+.vercel
+.env*
