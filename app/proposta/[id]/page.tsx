@@ -69,12 +69,11 @@ export default async function PaginaProposta({
           {/* ── Cabeçalho ─────────────────────────────────────────────── */}
           <header className="flex flex-wrap items-start justify-between gap-6">
             <Image
-              src="/brasforno-logo.png"
+              src="/brasforno-mascote.png"
               alt="Brasforno"
-              width={150}
-              height={23}
+              width={72}
+              height={62}
               priority
-              className="mt-1"
             />
             <div className="ml-auto text-right text-[0.7rem] leading-relaxed text-neutral-600">
               <p className="text-base font-bold tracking-tight text-neutral-900">
