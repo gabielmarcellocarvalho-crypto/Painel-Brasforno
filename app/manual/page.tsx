@@ -3,48 +3,54 @@ import { IconArrowRight, IconBookOpen, IconCheck, IconFlame } from "@/components
 
 const PASSOS = [
   {
+    titulo: "Entre com o seu login",
+    texto:
+      "Cada representante tem usuário e senha próprios. Você enxerga somente as suas propostas — a diretoria acompanha as de todo o time. Perdeu a senha? Fale com o administrador.",
+  },
+  {
     titulo: "Receba o interesse do cliente",
     texto:
-      "O cliente chega pelo WhatsApp, telefone, feira ou indicação. NÃO envie apenas o preço solto no WhatsApp — esse é exatamente o hábito que a proposta padronizada substitui.",
+      "O cliente chega pelo WhatsApp, telefone, feira ou indicação. NÃO envie apenas o preço solto no WhatsApp — esse é exatamente o hábito que o orçamento padronizado substitui.",
   },
   {
-    titulo: "Abra a plataforma e clique em “Nova Proposta”",
+    titulo: "Clique em “Nova Proposta” e preencha o cliente",
     texto:
-      "Preencha os dados do cliente: nome, empresa, WhatsApp com DDD, cidade/UF e segmento. Esses dados ficam centralizados e nunca mais se perdem em conversas soltas.",
+      "Razão social, contato, CNPJ, telefone e endereço de entrega. Quanto mais completo, mais o orçamento fica igual ao que a fábrica emite — e o cliente reconhece o documento.",
   },
   {
-    titulo: "Selecione os equipamentos",
+    titulo: "Escolha os equipamentos no catálogo",
     texto:
-      "Escolha a categoria (Fornos, Amassadeiras…), o equipamento e o modelo/tamanho. O texto comercial, as especificações e os diferenciais entram sozinhos na proposta — você só informa quantidade e preço da tabela vigente.",
+      "Clique no card do equipamento. A foto, o código, o NCM, as características técnicas e o preço de tabela entram sozinhos, direto do cadastro. Você só ajusta quantidade e o valor negociado.",
   },
   {
-    titulo: "Defina as condições comerciais",
+    titulo: "Defina condições e despesas previstas",
     texto:
-      "Validade, prazo de entrega, frete (CIF/FOB), forma de pagamento e desconto. Lembre-se: desconto acima de 10% exige aprovação do gerente comercial.",
+      "Condição de pagamento, vencimentos (à vista ou parcelado), prazo de entrega, frete e desconto. Marque as despesas previstas — técnico de montagem, frete, obra civil — dizendo de quem é a conta. Isso evita a discussão depois da venda fechada.",
   },
   {
-    titulo: "Revise e gere a proposta",
+    titulo: "Revise e gere o orçamento",
     texto:
-      "Confira tudo na tela de revisão e clique em “Gerar Proposta”. A proposta recebe um número único (BF-ANO-XXXX) e fica registrada no painel.",
+      "Confira tudo na revisão e clique em “Gerar Orçamento”. Ele recebe um número e fica registrado no painel. Desconto acima de 10% cria a proposta travada até a gestão liberar.",
   },
   {
     titulo: "Envie ao cliente",
     texto:
-      "Use o botão “Enviar via WhatsApp” — a mensagem sai formatada com os equipamentos e o link. Para enviar em PDF, clique em “Imprimir / PDF” e escolha “Salvar como PDF”. Ao enviar, o status muda automaticamente para “Enviada”.",
+      "Use “Enviar via WhatsApp” — a mensagem sai formatada com os itens, o total e o link. Para PDF, clique em “Imprimir / PDF” e escolha “Salvar como PDF”. Ao enviar, o status vira “Enviada” sozinho.",
   },
   {
-    titulo: "Acompanhe no painel",
+    titulo: "Registre o resultado",
     texto:
-      "Atualize o status conforme a negociação evolui: Enviada → Em negociação → Ganha ou Perdida. O painel mostra o valor total em negociação e as vendas ganhas do time.",
+      "Quando o cliente decidir, clique em “Cliente aprovou” ou “Não aprovou” — neste caso escolha o motivo. É isso que alimenta a taxa de aprovação do painel e mostra onde o time está perdendo venda.",
   },
 ];
 
 const BOAS_PRATICAS = [
   "Responda o interesse do cliente em até 2 horas úteis — proposta rápida fecha mais.",
-  "Sempre reforce os diferenciais que já vêm no template: economia de até 40% (ROTOR), garantia de 1 ano de fábrica, entrega nacional.",
+  "Sempre reforce os diferenciais Brasforno: economia de até 40% (ROTOR), garantia de 1 ano de fábrica, entrega nacional.",
   "Registre TODA proposta na plataforma, mesmo as pequenas. Sem registro, o time não enxerga o funil.",
-  "Faça follow-up 2 dias após o envio. Use o painel para ver o que está parado em “Enviada”.",
-  "Perdeu a venda? Marque “Perdida” e anote o motivo nas observações — isso vira inteligência comercial.",
+  "Marque as despesas com técnico de montagem já na proposta. É o item que mais gera atrito depois do fechamento.",
+  "Faça follow-up 2 dias após o envio. Use a aba “Em aberto” para ver o que está parado.",
+  "Perdeu a venda? Registre “Não aprovou” com o motivo real — isso vira inteligência comercial, não boletim de desempenho.",
 ];
 
 export default function Manual() {
@@ -56,7 +62,7 @@ export default function Manual() {
           Manual do Representante
         </h1>
         <p className="mt-3 text-sm leading-relaxed text-steel-600">
-          O fluxo padrão de proposta em 7 passos. Objetivo: todo cliente recebe
+          O fluxo padrão de proposta em 8 passos. Objetivo: todo cliente recebe
           material profissional — nunca mais “só o preço no WhatsApp”.
         </p>
       </header>

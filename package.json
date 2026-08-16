@@ -8,6 +8,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "gerar:secret": "node scripts/gerar-secret.js",
+    "criar:usuario": "node scripts/criar-usuario.js",
+    "seed:produtos": "node scripts/seed-produtos.js",
+    "migrate:propostas": "node scripts/migrar-propostas.js",
     "migrate:firestore": "node scripts/migrar-para-firestore.js"
   },
   "dependencies": {

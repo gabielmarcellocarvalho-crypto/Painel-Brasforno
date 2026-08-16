@@ -1,22 +1,37 @@
 import { NextRequest, NextResponse } from "next/server";
-import { criarProposta, listarPropostas } from "@/lib/store";
-import { Cliente, CondicoesComerciais, ItemProposta } from "@/lib/types";
+import { sessaoDaApi } from "@/lib/auth";
+import { podeCriarPropostas } from "@/lib/permissoes";
+import { criarProposta, listarPropostasVisiveis } from "@/lib/store";
+import { buscarUsuario } from "@/lib/usuarios";
+import { Cliente, CondicoesComerciais, ItemProposta, Proposta } from "@/lib/types";
+import { exigeAprovacaoInterna } from "@/lib/utils";
+
+export const runtime = "nodejs";
 
 export async function GET() {
-  return NextResponse.json(await listarPropostas());
+  const sessao = await sessaoDaApi();
+  if (!sessao) return NextResponse.json({ erro: "Não autenticado." }, { status: 401 });
+  return NextResponse.json(await listarPropostasVisiveis(sessao));
 }
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
+  const sessao = await sessaoDaApi();
+  if (!sessao) return NextResponse.json({ erro: "Não autenticado." }, { status: 401 });
+  if (!podeCriarPropostas(sessao.papel)) {
+    return NextResponse.json(
+      { erro: "Seu perfil acompanha propostas, mas não emite novas." },
+      { status: 403 }
+    );
+  }
 
+  const body = await req.json();
   const cliente = body.cliente as Cliente;
   const itens = body.itens as ItemProposta[];
   const condicoes = body.condicoes as CondicoesComerciais;
-  const representante = String(body.representante || "").trim();
 
   if (!cliente?.nome || !cliente?.whatsapp || !cliente?.empresa) {
     return NextResponse.json(
-      { erro: "Dados do cliente incompletos (nome, empresa e WhatsApp são obrigatórios)." },
+      { erro: "Dados do cliente incompletos (nome, empresa e telefone são obrigatórios)." },
       { status: 400 }
     );
   }
@@ -26,20 +41,26 @@ export async function POST(req: NextRequest) {
       { status: 400 }
     );
   }
-  if (!representante) {
-    return NextResponse.json(
-      { erro: "Informe o nome do representante." },
-      { status: 400 }
-    );
-  }
 
-  const proposta = await criarProposta({
+  // A proposta pertence a quem está logado — nunca a um nome digitado no
+  // formulário. É isso que sustenta o "cada um vê o que é seu".
+  const vendedorId = sessao.uid;
+  const usuario = await buscarUsuario(vendedorId);
+  const vendedorNome = usuario?.nome || sessao.nome;
+
+  const precisaAprovacao = exigeAprovacaoInterna(condicoes?.descontoPercent || 0);
+
+  const dados: Omit<Proposta, "id" | "numero" | "criadaEm" | "atualizadaEm"> = {
     status: "rascunho",
-    representante,
+    vendedorId,
+    vendedorNome,
+    criadaPorNome: sessao.nome,
     cliente,
     itens,
     condicoes,
-  });
+    aprovacaoInterna: { status: precisaAprovacao ? "pendente" : "nao_requer" },
+    aprovacaoCliente: { status: "pendente" },
+  };
 
-  return NextResponse.json(proposta, { status: 201 });
+  return NextResponse.json(await criarProposta(dados), { status: 201 });
 }
