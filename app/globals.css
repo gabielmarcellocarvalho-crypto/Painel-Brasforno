@@ -146,6 +146,80 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover { background: rgba(12, 87, 130, 0.45); }
 
+/* ─────────────────────────────────────────────────────────────────────────
+   Documento "Orçamento de Venda"
+
+   Réplica do PDF que a Brasforno já emite pelo ERP (modelo de proposta.pdf).
+   Cores e pesos aqui são deliberadamente diferentes do resto do app: o
+   documento imita o original, a interface segue a identidade da plataforma.
+   ───────────────────────────────────────────────────────────────────────── */
+
+.doc {
+  --doc-ambar: #efa14e;
+  --doc-ambar-claro: #fdefdc;
+  --doc-ambar-barra: #fbf1e4;
+  color: #262626;
+}
+
+.doc h2.doc-h2 {
+  margin-top: 2.1rem;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #171717;
+}
+
+/* Faixa clara usada no bloco "Produto" do modelo original */
+.doc h2.doc-h2-barra {
+  margin-top: 2.4rem;
+  background: var(--doc-ambar-barra);
+  padding: 0.4rem 0.6rem;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #171717;
+}
+
+.doc .doc-th {
+  background: var(--doc-ambar);
+  padding: 0.32rem 0.5rem;
+  font-weight: 700;
+  color: white;
+  white-space: nowrap;
+}
+
+.doc .doc-td {
+  padding: 0.4rem 0.5rem;
+  vertical-align: top;
+}
+
+.doc .doc-total-label {
+  background: var(--doc-ambar-claro);
+  padding: 0.28rem 0.5rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.doc .doc-total-valor {
+  background: var(--doc-ambar-claro);
+  padding: 0.28rem 0.5rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.doc .doc-parcela-label {
+  background: var(--doc-ambar-claro);
+  padding: 0.28rem 0.7rem;
+  text-align: right;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.doc .doc-parcela-valor {
+  padding: 0.28rem 0.9rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
 /* Impressão — só o documento da proposta */
 @media print {
   .no-print { display: none !important; }
@@ -155,7 +229,18 @@ body {
     box-shadow: none !important;
     border: none !important;
     margin: 0 !important;
+    padding: 0 !important;
     max-width: 100% !important;
   }
+  /* Fundos das faixas/cabeçalhos precisam sair na impressão e no PDF */
+  .doc .doc-th,
+  .doc .doc-total-label,
+  .doc .doc-total-valor,
+  .doc .doc-parcela-label,
+  .doc h2.doc-h2-barra {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .break-inside-avoid { break-inside: avoid; }
   @page { margin: 12mm; }
 }

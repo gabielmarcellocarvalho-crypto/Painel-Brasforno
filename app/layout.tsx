@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Ubuntu, Ubuntu_Mono } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
+import { sessaoAtual } from "@/lib/auth";
 
 const ubuntu = Ubuntu({
   weight: ["300", "400", "500", "700"],
@@ -22,20 +23,26 @@ export const metadata: Metadata = {
   icons: { icon: "/favicon-brasforno.png" },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // Login e setup rodam sem sessão — nesses casos a página desenha a tela
+  // inteira sozinha, sem a navegação lateral.
+  const sessao = await sessaoAtual();
+
   return (
     <html lang="pt-BR">
-      <body
-        className={`${ubuntu.variable} ${ubuntuMono.variable} antialiased grain`}
-      >
-        <div className="flex min-h-screen">
-          <Sidebar />
-          <main className="flex-1 blueprint-bg min-w-0 pt-[60px] md:pt-0">
-            {children}
-          </main>
-        </div>
+      <body className={`${ubuntu.variable} ${ubuntuMono.variable} antialiased grain`}>
+        {sessao ? (
+          <div className="flex min-h-screen">
+            <Sidebar sessao={sessao} />
+            <main className="blueprint-bg min-w-0 flex-1 pt-[60px] md:pt-0">
+              {children}
+            </main>
+          </div>
+        ) : (
+          children
+        )}
       </body>
     </html>
   );

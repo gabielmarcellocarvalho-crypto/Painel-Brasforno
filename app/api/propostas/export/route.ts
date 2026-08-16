@@ -1,9 +1,19 @@
 import { NextResponse } from "next/server";
-import { listarPropostas } from "@/lib/store";
-import { STATUS_LABEL, subtotalProposta, totalProposta } from "@/lib/utils";
+import { sessaoDaApi } from "@/lib/auth";
+import { listarPropostasVisiveis } from "@/lib/store";
+import {
+  APROVACAO_CLIENTE_LABEL,
+  APROVACAO_INTERNA_LABEL,
+  STATUS_LABEL,
+  formatarDataSimples,
+  subtotalProposta,
+  totalProposta,
+} from "@/lib/utils";
+
+export const runtime = "nodejs";
 
 function csvEscape(v: string | number): string {
-  const s = String(v);
+  const s = String(v ?? "");
   if (s.includes(";") || s.includes('"') || s.includes("\n")) {
     return `"${s.replace(/"/g, '""')}"`;
   }
@@ -11,15 +21,24 @@ function csvEscape(v: string | number): string {
 }
 
 export async function GET() {
-  const propostas = await listarPropostas();
+  const sessao = await sessaoDaApi();
+  if (!sessao) return NextResponse.json({ erro: "Não autenticado." }, { status: 401 });
+
+  // O CSV respeita o mesmo escopo da tela: representante exporta só o que é seu.
+  const propostas = await listarPropostasVisiveis(sessao);
+
   const cabecalho = [
     "Número",
     "Data",
     "Status",
-    "Representante",
+    "Aprovação interna",
+    "Resultado do cliente",
+    "Motivo da recusa",
+    "Vendedor",
     "Cliente",
     "Empresa",
-    "WhatsApp",
+    "CNPJ/CPF",
+    "Telefone",
     "Cidade",
     "UF",
     "Segmento",
@@ -30,6 +49,7 @@ export async function GET() {
     "Frete",
     "Pagamento",
     "Prazo de entrega",
+    "Previsão de faturamento",
   ];
 
   const linhas = propostas.map((p) =>
@@ -37,20 +57,27 @@ export async function GET() {
       p.numero,
       new Date(p.criadaEm).toLocaleDateString("pt-BR"),
       STATUS_LABEL[p.status],
-      p.representante,
+      APROVACAO_INTERNA_LABEL[p.aprovacaoInterna?.status || "nao_requer"],
+      APROVACAO_CLIENTE_LABEL[p.aprovacaoCliente?.status || "pendente"],
+      p.aprovacaoCliente?.motivo || "",
+      p.vendedorNome,
       p.cliente.nome,
       p.cliente.empresa,
+      p.cliente.cnpjCpf || "",
       p.cliente.whatsapp,
       p.cliente.cidade,
       p.cliente.uf,
       p.cliente.segmento,
-      p.itens.map((i) => `${i.quantidade}x ${i.produtoNome} (${i.modelo})`).join(" | "),
+      p.itens.map((i) => `${i.quantidade}x ${i.codigo} ${i.descricao}`).join(" | "),
       subtotalProposta(p).toFixed(2).replace(".", ","),
       p.condicoes.descontoPercent,
       totalProposta(p).toFixed(2).replace(".", ","),
       p.condicoes.frete,
-      p.condicoes.formaPagamento,
+      p.condicoes.condicaoPagamento,
       p.condicoes.prazoEntrega,
+      p.condicoes.previsaoFaturamento
+        ? formatarDataSimples(p.condicoes.previsaoFaturamento)
+        : "",
     ]
       .map(csvEscape)
       .join(";")
