@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { CATEGORIAS, UNIDADES } from "@/lib/empresa";
 import { Produto } from "@/lib/types";
 import { formatarMoeda } from "@/lib/utils";
+import { TAMANHO_MAX_NCM, mascararNcm } from "@/lib/mascaras";
 import CampoFoto from "./CampoFoto";
 import {
   IconAlertTriangle,
@@ -426,7 +427,11 @@ export default function GerenciadorCatalogo({
                     id="p-ncm"
                     className={inputCls}
                     value={rascunho.ncm}
-                    onChange={(e) => setRascunho({ ...rascunho, ncm: e.target.value })}
+                    onChange={(e) =>
+                      setRascunho({ ...rascunho, ncm: mascararNcm(e.target.value) })
+                    }
+                    maxLength={TAMANHO_MAX_NCM}
+                    inputMode="numeric"
                     placeholder="8417.20.00"
                   />
                 </div>

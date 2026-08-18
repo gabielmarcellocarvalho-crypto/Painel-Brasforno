@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { PAPEL_DESCRICAO, PAPEL_LABEL, Papel, UsuarioPublico } from "@/lib/types";
 import { formatarData, iniciais } from "@/lib/utils";
+import { TAMANHO_MAX_TELEFONE, mascararTelefone } from "@/lib/mascaras";
 import {
   IconAlertTriangle,
   IconLock,
@@ -362,7 +363,11 @@ export default function GerenciadorUsuarios({
                     id="u-telefone"
                     className={inputCls}
                     value={rascunho.telefone}
-                    onChange={(e) => setRascunho({ ...rascunho, telefone: e.target.value })}
+                    onChange={(e) =>
+                      setRascunho({ ...rascunho, telefone: mascararTelefone(e.target.value) })
+                    }
+                    maxLength={TAMANHO_MAX_TELEFONE}
+                    inputMode="numeric"
                     placeholder="(11) 99999-9999"
                   />
                 </div>

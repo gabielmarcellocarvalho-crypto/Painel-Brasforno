@@ -15,6 +15,15 @@ import {
 } from "@/lib/types";
 import { formatarMoeda, hojeISO, somarDias } from "@/lib/utils";
 import {
+  TAMANHO_MAX_CEP,
+  TAMANHO_MAX_CNPJ_CPF,
+  TAMANHO_MAX_INSCRICAO_ESTADUAL,
+  TAMANHO_MAX_TELEFONE,
+  mascararCep,
+  mascararCnpjCpf,
+  mascararTelefone,
+} from "@/lib/mascaras";
+import {
   IconAlertTriangle,
   IconArrowRight,
   IconCheck,
@@ -324,7 +333,11 @@ export default function AssistenteProposta({
                     id="cnpj"
                     className={inputCls}
                     value={cliente.cnpjCpf}
-                    onChange={(e) => setCliente({ ...cliente, cnpjCpf: e.target.value })}
+                    onChange={(e) =>
+                      setCliente({ ...cliente, cnpjCpf: mascararCnpjCpf(e.target.value) })
+                    }
+                    maxLength={TAMANHO_MAX_CNPJ_CPF}
+                    inputMode="numeric"
                     placeholder="00.000.000/0000-00"
                   />
                 </div>
@@ -337,6 +350,7 @@ export default function AssistenteProposta({
                     onChange={(e) =>
                       setCliente({ ...cliente, inscricaoEstadual: e.target.value })
                     }
+                    maxLength={TAMANHO_MAX_INSCRICAO_ESTADUAL}
                     placeholder="isento ou nº da IE"
                   />
                 </div>
@@ -346,7 +360,11 @@ export default function AssistenteProposta({
                     id="zap"
                     className={inputCls}
                     value={cliente.whatsapp}
-                    onChange={(e) => setCliente({ ...cliente, whatsapp: e.target.value })}
+                    onChange={(e) =>
+                      setCliente({ ...cliente, whatsapp: mascararTelefone(e.target.value) })
+                    }
+                    maxLength={TAMANHO_MAX_TELEFONE}
+                    inputMode="numeric"
                     placeholder="(11) 99999-9999"
                   />
                 </div>
@@ -402,7 +420,11 @@ export default function AssistenteProposta({
                       id="cep"
                       className={inputCls}
                       value={cliente.cep}
-                      onChange={(e) => setCliente({ ...cliente, cep: e.target.value })}
+                      onChange={(e) =>
+                        setCliente({ ...cliente, cep: mascararCep(e.target.value) })
+                      }
+                      maxLength={TAMANHO_MAX_CEP}
+                      inputMode="numeric"
                       placeholder="06530-020"
                     />
                   </div>
